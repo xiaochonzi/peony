@@ -2,28 +2,6 @@
 import six
 
 
-class MsgCall(object):
-
-    def update_bean(self, cls_name, json, timestamp):
-        raise NotImplementedError
-
-    def delete_beans(self, cls_name, ids, timestamp):
-        raise NotImplementedError
-
-    def __call__(self, message, timestamp):
-        try:
-            flag = message[:1]
-            index = message.index(':')
-            cls_name = message[1:index]
-            content = message[index+1:]
-            if ord(flag) == 48:
-                self.delete_beans(cls_name, content, timestamp)
-            else:
-                self.update_bean(cls_name, content, timestamp)
-        except Exception as e:
-            pass
-
-
 def to_unicode(text, encoding=None, errors='strict'):
     if isinstance(text, six.text_type):
         return text
